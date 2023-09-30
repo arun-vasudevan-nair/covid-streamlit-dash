@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import altair as alt
 
-@st.cache
+@st.cache_data
 def read_data():
     data = pd.read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
     data['date'] = pd.to_datetime(data['date'])
@@ -26,7 +26,7 @@ if countries:
     country_max_cases = []
     country_cases = pd.DataFrame()
     for country in countries:
-        country_cases = country_cases.append(data[data["location"] == country],ignore_index=True)
+        country_cases = country_cases._append(data[data["location"] == country],ignore_index=True)
         country_max_cases.append(np.max(data[data["location"] == country][column]))
 
     df_max = pd.DataFrame({
